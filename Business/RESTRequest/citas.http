@@ -1,0 +1,16 @@
+@host = http://localhost:8080/api 
+@uri = {{host}}/citas
+
+GET {{uri}}/paciente/3
+###
+
+POST {{uri}}
+Content-Type: application/json
+
+{
+    "paciente_id" : 3,
+    "medico_id" : 2,
+    "fecha_hora": "2026-10-15 10:00:00",
+    "motivo": "Consulta General"
+}
+###

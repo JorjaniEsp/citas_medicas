@@ -1,0 +1,9 @@
+db_password.txt
+proyecto_limpio.txt
+.env
+mysql/
+vendor/
+
+.vscode/
+Thumbs.db 
+desktop.ini

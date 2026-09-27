@@ -1,0 +1,34 @@
+@host = http://localhost:8080/api 
+@uri = {{host}}/pacientes
+
+GET {{uri}}
+###
+
+GET {{uri}}/1
+
+###
+POST {{uri}}
+Content-Type: application/json
+
+{
+    "cedula" : "703210111",
+    "nombre_completo" : "Jorjanie Espinoza",
+    "fecha_nacimiento" : "2006-02-13",
+    "telefono" : "62000129",
+    "username" : "Jor",
+    "password" : "12345678"
+}
+
+
+###
+PUT {{uri}}/1
+Content-Type: application/json
+
+{
+    "nombre_completo" : "Jorjanie Morales",
+    "telefono"        : "8693-7688"
+}
+
+###
+
+DELETE {{uri}}/2

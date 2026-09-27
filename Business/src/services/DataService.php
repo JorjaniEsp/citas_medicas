@@ -1,0 +1,50 @@
+<?php
+namespace App\Services;
+
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
+
+final class DataService {
+    private ClientInterface $client;
+    public function __construct(object $config){
+        $this->client = new Client ([
+            'base_uri'        => rtrim($config->api_data, '/') . '/',
+            'timeout'         => $config->timeout,
+            'connect_timeout' => $config->timeout,
+            'http_errors'     => false,
+            'headers'         => [
+                'Accept' => 'application/json'
+            ] 
+        ]);
+    }
+
+    public function get(String $path, array $query = []) : ResponseInterface {
+        return $this->client->request('GET', ltrim($path,'/'),
+        ['query' => $query]);
+    }
+
+    public function post(String $path, string $body) : ResponseInterface {
+        return $this->client->request('POST', ltrim($path,'/'),
+        [
+            'body'    => $body,
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+    }
+
+    public function put(String $path, string $body) : ResponseInterface {
+        return $this->client->request('PUT', ltrim($path,'/'),
+        [
+            'body'    => $body,
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+    }
+
+    public function delete(string $path) : ResponseInterface{
+        return $this->client->request('DELETE', ltrim($path, '/'));
+    }
+}

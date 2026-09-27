@@ -1,0 +1,48 @@
+@host = http://localhost:9090/api 
+
+@uri = {{host}}/medicos
+
+@token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaXRhcy1tZWRpY2FzLWJ1c2luZXNzIiwiaWF0IjoxNzkwNDkyMjkzLCJleHAiOjE3OTA0OTIzMzgsInN1YiI6IjEyIiwidXNlcm5hbWUiOiJrZXlsb3IwOCIsInJvbF9pZCI6Mn0.QQhQBYWCWV995gIdZiFUt02eY_HstszDrpKNjWmx3jM
+
+GET {{uri}}
+Authorization: Bearer {{token}}
+###
+
+GET {{uri}}/2
+###
+POST {{uri}}
+Content-Type: application/json
+
+{
+    "especialidad_id" : 4,
+    "nombre_completo" : "Angely Noelia",
+    "licencia"        : "LIC-222211",
+    "telefono"        : "8693-7688",
+    "username"        : "keylor08",
+    "password"        : "secure1D#"
+}
+
+###
+PUT {{uri}}/3
+Content-Type: application/json
+
+{
+    "nombre_completo" : "Jorjanie Espinoza Espinoza",
+    "telefono"        : "6200-0129"
+}
+
+###
+
+DELETE {{uri}}/3
+###
+
+GET {{uri}}/filter/0/10?cedula=&nombre=&especialidad=
+
+###
+POST http://localhost:9090/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "keylor08",
+    "password": "secure1D#"
+}

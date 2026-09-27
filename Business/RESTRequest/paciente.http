@@ -1,0 +1,60 @@
+@host = http://localhost:9090/api 
+@uri = {{host}}/pacientes
+
+@token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaXRhcy1tZWRpY2FzLWJ1c2luZXNzIiwiaWF0IjoxNzkwNDkzOTE0LCJleHAiOjE3OTA0OTc1MTQsInN1YiI6IjE5IiwidXNlcm5hbWUiOiJ2YWxlcmlhY2giLCJyb2xfaWQiOjN9.M-8u6wiITUm2XfZvmUpLEPEF6GaD4Z5aOkyAjr-ZujE
+
+GET {{uri}}
+Authorization: Bearer {{token}}
+
+###
+GET {{uri}}/filter/1/2?nombre=&cedula=
+
+###
+GET {{uri}}/3
+
+
+###
+POST {{uri}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "cedula" : "703210211",
+    "nombre_completo" : "Nicolas Espinoza",
+    "fecha_nacimiento" : "2006-02-13",
+    "username" : "colacho01",
+    "password" : "Segura24#"
+}
+
+###
+POST {{uri}}
+Content-Type: application/json
+
+{
+    "cedula" : "704980017",
+    "nombre_completo" : "Valeria Chavarría",
+    "fecha_nacimiento" : "2001-11-05",
+    "telefono" : "89012345",
+    "username" : "valeriach",
+    "password" : "Clave987x"
+}
+
+###
+PUT {{uri}}/5
+Content-Type: application/json
+
+{
+    "nombre_completo" : "Actualizado Morales",
+    "telefono"        : "9999-9999"
+}
+###
+DELETE {{uri}}/5
+###
+
+POST http://localhost:9090/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "valeriach",
+    "password": "Clave987x"
+}
