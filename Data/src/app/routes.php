@@ -19,20 +19,12 @@ $app->get('/hello/{name}', function (Request $request, Response $response, array
     return $response;
 });
 
-// todo lo que este aqui dentro empezara con /api "localhost:8080/api"
 $app->group('/api', function(RouteCollectorProxy $api){
-    //$api heredo el contexto
+
     $api->post('/auth/credentials', Auth::class . ':credentials');
-    // todo lo que este aqui adentro tendra /medico | "localhost:8080/api/medico"
     $api->group('/medicos', function(RouteCollectorProxy $endpoint){
 
-        // se registra un endpoint a la URL localhost:8080/api/medico
-        // no se le agrego nada más
         $endpoint->get('[/{id}]', Medico::class . ':read');
-        // Medico::class devuelve el nombre de la clase junto a su namespace y lo 
-        // concate con : y nombre del metodo, slim lee la parte izquierda y crea
-        // el objeto, le inyecta sus dependencias, al lado derecho ejecuta el metodo
-        // y pasa el request y response
         $endpoint->get('/filter/{offset}/{limit}', Medico::class . ':filter');
         
         $endpoint->put('/{id}', Medico::class . ':update');
@@ -54,7 +46,9 @@ $app->group('/api', function(RouteCollectorProxy $api){
     });
 
     $api->group('/citas', function(RouteCollectorProxy $url) {
-        $url->get('[/paciente/{id}]', Citas::class . ':read');
+        //$url->get('[/paciente/{id}]', Citas::class . ':read');
+        $url->get('/paciente/{id}', Citas::class . ':readPaciente');
+        $url->get('/medico/{id}', Citas::class . ':readMedico');
         $url->post('', Citas::class . ':create');
     });
 

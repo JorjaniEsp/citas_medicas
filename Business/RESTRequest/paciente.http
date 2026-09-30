@@ -34,9 +34,9 @@ Content-Type: application/json
     "cedula" : "704980017",
     "nombre_completo" : "Valeria Chavarría",
     "fecha_nacimiento" : "2001-11-05",
-    "telefono" : "89012345",
+    "telefono" : "8901-2345",
     "username" : "valeriach",
-    "password" : "Clave987x"
+    "password" : "Clave987#"
 }
 
 ###
@@ -56,5 +56,5 @@ Content-Type: application/json
 
 {
     "username": "valeriach",
-    "password": "Clave987x"
+    "password": "Clave987#"
 }

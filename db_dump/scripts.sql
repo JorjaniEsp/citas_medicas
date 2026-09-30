@@ -115,3 +115,31 @@ INSERT INTO especialidades(nombre) values
         ('Cardiologia'),
         ('Pediatría');
 
+-- INSERT INTO usuarios (username, password, rol_id, activo) 
+-- VALUES ('dr_acosta', '12345', 1, 1);
+
+-- INSERT INTO medicos (usuario_id, especialidad_id, nombre_completo, licencia, telefono) 
+-- VALUES (LAST_INSERT_ID(), 1, 'Dr. Roberto Acosta', 'MED-98765', '8888-1111');
+
+-- INSERT INTO usuarios (username, password, rol_id, activo) 
+-- VALUES ('cgarcia', '12345', 2, 1);
+
+-- INSERT INTO pacientes (usuario_id, cedula, nombre_completo, fecha_nacimiento, telefono) 
+-- VALUES (LAST_INSERT_ID(), '1-1234-5678', 'Carlos García', '1992-08-15', '8888-2222');
+
+-- INSERT INTO citas (paciente_id, medico_id, fecha_hora, estado, motivo) 
+-- VALUES (1, 1, '2026-10-01 10:00:00', 'Programada', 'Chequeo general de rutina');
+
+-- SP para obtener citas de un paciente
+DELIMITER //
+CREATE PROCEDURE sp_obtener_citas_medico(
+    IN m_medico_id INT
+)
+BEGIN
+    SELECT c.id, c.fecha_hora, c.estado, c.motivo, p.nombre_completo AS paciente
+    FROM citas c
+    INNER JOIN pacientes p ON c.paciente_id = p.id
+    WHERE c.medico_id = m_medico_id
+    ORDER BY c.fecha_hora DESC;
+END //
+DELIMITER ;

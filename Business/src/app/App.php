@@ -29,7 +29,9 @@ require_once "routes.php";
 $app->add(new JwtAuthentication(
     new Options(isSecure: false),
     new FirebaseDecoder(new Secret($_ENV['KEY'], 'HS256')),
-    [new RequestPathRule(['/'], ['/api/auth/login'])]
+    [
+        new RequestPathRule(['/'], 
+        ['/api/auth/login', '/api/medicos', '/api/pacientes'])]
 ));
 
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
