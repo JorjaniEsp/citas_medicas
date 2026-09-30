@@ -2,7 +2,10 @@
 @uri = {{host}}/citas
 @token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaXRhcy1tZWRpY2FzLWJ1c2luZXNzIiwiaWF0IjoxNzkwNzgxMTQwLCJleHAiOjE3OTA3ODQ3NDAsInN1YiI6IjMiLCJ1c2VybmFtZSI6ImtleWxvcjA4Iiwicm9sX2lkIjoyfQ.29mfL13Qygy1TkSOd4wizC8jjig27naA-MSPFjnHiZ0
 
-GET {{uri}}/paciente/3
+GET {{uri}}/paciente/2
+Authorization: Bearer {{token}}
+###
+GET {{uri}}/medico/1
 Authorization: Bearer {{token}}
 
 ###
@@ -11,8 +14,8 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "paciente_id" : 3,
-    "medico_id" : 2,
-    "fecha_hora": "2026-10-15 10:00:00",
+    "paciente_id" : 2,
+    "medico_id" : 1,
+    "fecha_hora": "2026-10-15 11:00:00",
     "motivo": "Consulta General"
 }

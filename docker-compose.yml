@@ -28,7 +28,6 @@ services:
       - 8080:80
     depends_on:
       - db
-    
 
   webnegocios:
     container_name: web_negocios
@@ -45,7 +44,14 @@ services:
       - 9090:80
     depends_on:
       - webdatos
-  
+
+  webpresentacion:
+    container_name: web_presentacion
+    build: 
+      context: ./citas_medicas
+      dockerfile: Dockerfile
+    ports:
+      - 4200:80
 secrets:
   db_password:
     file: ./db_password.txt

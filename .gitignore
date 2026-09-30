@@ -7,3 +7,15 @@ vendor/
 .vscode/
 Thumbs.db 
 desktop.ini
+
+node_modules
+
+# Angular (por si el .gitignore interno se borra o se reemplaza)
+.angular/
+dist/
+
+# Temporales de tu script (si se interrumpe a medias queda uno suelto)
+.proyecto_*.tmp
+
+# Logs
+*.log
