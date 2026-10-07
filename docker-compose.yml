@@ -48,7 +48,7 @@ services:
   webpresentacion:
     container_name: web_presentacion
     build: 
-      context: ./citas_medicas
+      context: ./Presentation
       dockerfile: Dockerfile
     ports:
       - 4200:80
