@@ -8,7 +8,7 @@ ARCHIVO_SALIDA = 'proyecto_limpio.txt'
 RAIZ_PROYECTO = os.path.realpath(os.path.dirname(os.path.abspath(__file__)))
 
 # 1. CARPETAS QUE SÍ QUEREMOS LEER (todo lo demás se ignora, incluyendo 'mysql')
-CARPETAS_PERMITIDAS = ['Business', 'Data', 'citas_medicas', 'Presentacion', 'db_dump']
+CARPETAS_PERMITIDAS = ['Business', 'Data', 'citas_medicas', 'Presentation', 'db_dump']
 
 # 2. ARCHIVOS EN LA RAÍZ QUE SÍ NOS INTERESAN
 ARCHIVOS_RAIZ = ['docker-compose.yml', '.dockerignore']

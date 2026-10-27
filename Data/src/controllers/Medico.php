@@ -1,20 +1,9 @@
 <?php
 
-/**
- * Le aviso al sistema que esta clase pertenece al grupo o carpeta virtual
- * App\controllers. Así, si Slim necesita buscarla, sabrá exactamente dónde 
- * encontrarla
- */
 namespace App\controllers;
 
-// Response es el objeto que usamos para enviar la respuesta al usuario 
 use Psr\Http\Message\ResponseInterface as Response;
-
-// El objeto que contiene toda la información de lo que el usuario nos pidió 
-// (por ejemplo, si nos envió datos por la URL o por un formulario).
 use Psr\Http\Message\ServerRequestInterface as Request;
-
-// El molde oficial para poder recibir nuestra "caja de herramientas".
 use Psr\Container\ContainerInterface;
 use App\Models\Medico as MedicoModel;
 use Illuminate\Database\QueryException;
@@ -23,26 +12,14 @@ use App\Models\User;   // ← agrégala
 
 
 class Medico {
-    // creamos una variale para guardar la caja de herramientas (container)
     private $container;
     
-    // __construct es la forma en la que creamos un constructor en PHP.
-    // Cuando alguien visite la URL asignada, Slim por debajo va a crear el objeto Medico
-    // y le inyecta la "caja de herramientas" (Container) que configuramos al inicio.
     public function __construct(ContainerInterface $c) {
-
-        // Tomas la caja $c y la guardas en la variable $container para poder usarla en toda la clase.
         $this->container = $c;
     }
 
-    /**
-     *  Slim detecta que esta función necesita tres cosas y se las inyecta (Inyección por Método):
-     *  $request: Lo que el usuario te manda.
-     *  $response: Tu lienzo en blanco para contestar.
-     *  $args: Cualquier variable extra que venga en la URL.
-     */
+    
     public function read(Request $request, Response $response, array $args){
-        // le pido al contenedor la configuracion, que guarde en conexion.php
         $this->container->get('eloquent'); 
 
         if( isset($args['id']) ){
@@ -51,14 +28,14 @@ class Medico {
                 ->join('especialidades', 'medicos.especialidad_id', '=', 'especialidades.id')
                 ->find($args['id']);
 
-            return $this->json($response,['data0' => $medicos], 200);
+            return $this->json($response,['data' => $medicos], 200);
         }
         $medicos = MedicoModel::query()
             ->select(['id', 'especialidad_id', 'nombre_completo', 'licencia', 'telefono'])
             ->get()
             ->toArray();
 
-        return $this->json($response,['data0' => $medicos], 200);
+        return $this->json($response,['data' => $medicos], 200);
     }
 
     public function filter(Request $request, Response $response, array $args) : Response {
@@ -74,9 +51,9 @@ class Medico {
         }
 
         $params = $request->getQueryParams();
-        $name      = trim( (String) ($params['nombre']) ?? $params['nombre_completo'] ?? '');
-        $license   = trim( (String) ($params['licencia'] ?? $params['cedula'] ?? '' ));
-        $specialty = trim( (String) ($params['especialidad']) ?? '');
+        $name      = trim( (String) ($params['nombre'] ?? $params['nombre_completo'] ?? '') );
+        $license   = trim( (String) ($params['licencia'] ?? $params['cedula'] ?? '' ) );
+        $specialty = trim( (String) ($params['especialidad'] ?? '') );
 
         $query = MedicoModel::query()
             ->select([
@@ -113,7 +90,8 @@ class Medico {
             'data'       => $medicos,
             'pagination' => [
                 'offset' => $offset,
-                'limit'  => $limit
+                'limit'  => $limit,
+                'total'  => $total
             ]
         ], 200);
     }
@@ -200,14 +178,8 @@ class Medico {
             throw $exception;
         }
 
-        return $this->json($response,$data, 201);
-        //return $this->json($response, ['data' => $medico->toArray()], 201);
+        return $this->json($response, ['data' => $medico->toArray()], 201);
     }
-
-    //especialidad_id INT NOT NULL,
-    //nombre_completo VARCHAR(150) NOT NULL,
-    //licencia VARCHAR(50) NOT NULL UNIQUE,
-    //telefono VARCHAR(20),
 
     public function update(Request $request, Response $response, array $args): Response {
         // Implementation for updating a Medico record would go here.
@@ -254,13 +226,10 @@ class Medico {
                 $license = trim((string) ($data['licencia'] ?? ''));
                 
                 if ($license === '' || mb_strlen($license) > 50) {
-                    return $this->json($response, ['error' => 'Especialidad incorrecta.'], 422);
+                    return $this->json($response, ['error' => 'Licencia invalida.'], 422);
                 }
-                $medico->especialidad_id = $specialtyId;
+                $medico->licencia = $license;
             }
-
-            // Update other fields similarly...
-
             $medico->save();
 
             return $this->json($response, ['data' => $medico->toArray()], 200);

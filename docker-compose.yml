@@ -1,5 +1,5 @@
 services:
-# comentario
+  # comentario
   db:
     image: mysql:9.7
     container_name: base_datos
@@ -45,13 +45,13 @@ services:
     depends_on:
       - webdatos
 
-  webpresentacion:
-    container_name: web_presentacion
-    build: 
-      context: ./Presentation
-      dockerfile: Dockerfile
-    ports:
-      - 4200:80
+  #webpresentacion:
+  #  container_name: web_presentacion
+  #  build: 
+  #    context: ./Presentation
+  #    dockerfile: Dockerfile
+  #  ports:
+  #    - 4200:80
 secrets:
   db_password:
     file: ./db_password.txt

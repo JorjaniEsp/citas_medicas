@@ -31,7 +31,7 @@ class Medico {
                 ->withStatus($upstream->getStatusCode());
         } catch (ConnectException $e) {
             return $this->json($response, [ 'error' => 'Service de datos no está disponible'], 502);
-        } catch (ResquestException $e) {
+        } catch (RequestException $e) {
             return $this->json($response, [ 'error' => 'El no se pudo consultar el servicio de datos'], 502);
         }
     }
@@ -50,7 +50,7 @@ class Medico {
                 ->withStatus($upstream->getStatusCode());
         } catch (ConnectException $e) {
             return $this->json($response, [ 'error' => 'Service de datos no está disponible'], 502);
-        } catch (ResquestException $e) {
+        } catch (RequestException $e) {
             return $this->json($response, [ 'error' => 'El no se pudo consultar el servicio de datos'], 502);
         }
     }

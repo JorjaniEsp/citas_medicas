@@ -97,7 +97,7 @@ class Paciente {
 
             throw $exception;
         }
-        return $this->json($response,$data, 201);
+        return $this->json($response,[ 'data' => $paciente->toArray()], 201);
     }
 
     public function read(Request $request, Response $response, array $args){
@@ -157,7 +157,8 @@ class Paciente {
             'data'       => $pacientes,
             'pagination' => [
                 'offset' => $offset,
-                'limit'  => $limit
+                'limit'  => $limit,
+                'total'  => $total
             ]
         ], 200);
     }

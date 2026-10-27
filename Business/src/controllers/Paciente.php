@@ -19,7 +19,7 @@ class Paciente {
     public function read(Request $request, Response $response, array $args){
         try {
             $dataService = $this->container->get(DataService::class);
-            $path        = isset($args['id']) ? 'pacientes/' . rawurldecode($args['id']) : "pacientes";
+            $path        = isset($args['id']) ? 'pacientes/' . rawurlencode($args['id']) : "pacientes";
             $upstream    = $dataService->get($path);
             $response->getBody()->write( (string) $upstream->getBody());
 
@@ -83,7 +83,7 @@ class Paciente {
     public function filter(Request $request, Response $response, array $args){
         try {
             $dataService = $this->container->get(DataService::class);
-            $path        = 'pacientes/filter/' . rawurldecode($args['offset']) . '/' . rawurldecode($args['limit']);
+            $path        = 'pacientes/filter/' . rawurlencode($args['offset']) . '/' . rawurlencode($args['limit']);
             $upstream    = $dataService->get($path, $request->getQueryParams());
             $response->getBody()->write( (string) $upstream->getBody());
 
